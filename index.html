@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>هدية خاصة ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+    body {
+      background: linear-gradient(135deg, #4A0010, #800020, #30000A);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      color: #FFFFFF; min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow-x: hidden; padding: 20px;
+    }
+    @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    .screen { display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; max-width: 500px; animation: fadeIn 0.8s ease-in-out forwards; z-index: 2; }
+    .screen.active { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .lock-icon { font-size: 80px; cursor: pointer; margin-bottom: 20px; transition: transform 0.3s ease; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3)); }
+    .lock-icon:hover { transform: scale(1.1); }
+    input[type="password"] { padding: 12px 20px; font-size: 18px; border-radius: 25px; border: 2px solid #FFFFFF; background: rgba(255, 255, 255, 0.1); color: #FFFFFF; text-align: center; outline: none; margin: 15px 0; width: 80%; backdrop-filter: blur(5px); }
+    input[type="password"]::placeholder { color: rgba(255, 255, 255, 0.7); }
+    .btn { background-color: #FFFFFF; color: #800020; font-weight: bold; font-size: 18px; padding: 12px 30px; border: none; border-radius: 30px; cursor: pointer; margin-top: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; }
+    .btn:hover { transform: scale(1.05); background-color: #f0f0f0; box-shadow: 0 8px 20px rgba(255,255,255,0.4); }
+    .music-btn { position: fixed; top: 20px; left: 20px; background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.4); color: white; font-size: 20px; padding: 8px 12px; border-radius: 50%; cursor: pointer; z-index: 1000; backdrop-filter: blur(5px); display: none; transition: transform 0.2s ease; }
+    .message-text { font-size: 20px; line-height: 2; background: rgba(0, 0, 0, 0.2); padding: 25px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px); }
+    .timer-display { font-size: 28px; font-weight: bold; letter-spacing: 2px; direction: ltr; background: rgba(0, 0, 0, 0.3); padding: 15px 25px; border-radius: 15px; margin: 20px 0; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
+    .heart { position: fixed; font-size: 24px; user-select: none; pointer-events: none; animation: floatUp 3s linear forwards; z-index: 999; }
+    @keyframes floatUp { 0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; } 100% { transform: translateY(-100vh) scale(1.5) rotate(360deg); opacity: 0; } }
+    .final-heart-wrapper { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #800020; display: flex; justify-content: center; align-items: center; z-index: 10; overflow: hidden; display: none; }
+    .big-red-heart { font-size: 20px; color: #ff0d43; transform: scale(1); transition: transform 1.5s ease-in-out; text-shadow: 0 0 30px rgba(255, 13, 67, 0.8); }
+    .big-red-heart.grow { transform: scale(60); }
+    .big-red-heart.shatter { animation: shatterAnim 0.6s forwards; }
+    @keyframes shatterAnim { 0% { opacity: 1; transform: scale(60); } 50% { opacity: 0.8; transform: scale(70) rotate(5deg); filter: blur(4px); } 100% { opacity: 0; transform: scale(100); filter: blur(10px); } }
+    .love-title { font-family: 'Aref Ruqaa', serif; font-size: 75px; color: #FFFFFF; text-shadow: 0 0 20px rgba(255,255,255,0.8), 0 0 40px #ff0d43; margin-bottom: 20px; opacity: 0; transform: scale(0.5); transition: all 1s ease; }
+    .love-title.show { opacity: 1; transform: scale(1); }
+    .sub-proposal { font-size: 26px; font-weight: bold; opacity: 0; transition: opacity 1.5s ease 0.8s; }
+    .sub-proposal.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <button id="musicToggle" class="music-btn" onclick="toggleMusic()">🎵</button>
+
+  <audio id="bgMusic" loop>
+    <source src="Song.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Screen 1: Lock Screen -->
+  <div id="screen1" class="screen active">
+    <div class="lock-icon" onclick="focusPassword()">🔒</div>
+    <p style="font-size: 20px; font-weight: bold;">دوس علي القفل واكتبي الباسورد 1010</p>
+    <input type="password" id="passInput" placeholder="الباسورد..." maxlength="4">
+    <button class="btn" onclick="checkPassword()">دخول ❤️</button>
+  </div>
+
+  <!-- Screen 2: Intro -->
+  <div id="screen2" class="screen">
+    <p class="message-text">
+      زي انهارده اتولدت حياتي كلها و اتولدت فيها اجمل بنوته في الكون
+    </p>
+    <button class="btn" onclick="goToScreen(2, 3)">يلا نكمل سوا</button>
+  </div>
+
+  <!-- Screen 3: Date 10/10/2006 -->
+  <div id="screen3" class="screen">
+    <h2>تاريخ ميلادك المميز ✨</h2>
+    <div id="bdayTimer" class="timer-display">00d 00h 00m 00s</div>
+    <p style="font-size: 22px;">يوم 10 شهر 10 سنه 2006</p>
+    <button class="btn" onclick="goToScreen(3, 4)">من هنا يا حياتي</button>
+  </div>
+
+  <!-- Screen 4: Message -->
+  <div id="screen4" class="screen">
+    <p class="message-text">
+      عمري ما انسي ولا يوم كنا فيه مع بعض ولا انسي اي حاجه ما بينا انتِ كل حياتي ربنا يخليكي ليا يارب و ميحرمنيش من حياتي عايز اقولك كل سنه وانت اطيب و احلى بنوته في الدنيا كل سنه واحنا مع بعض وميفرقش بينا اي حاجه وحشه ❤️️
+    </p>
+    <button class="btn" onclick="goToScreen(4, 5)">فاكره دي؟</button>
+  </div>
+
+  <!-- Screen 5: Special Time (Jan 3 at 03:55) -->
+  <div id="screen5" class="screen">
+    <h2>الوقت دا بالذات ⏳</h2>
+    <div id="specialTimer" class="timer-display">00d 00h 00m 00s</div>
+    <p style="font-size: 20px;">يوم ٣ شهر ١ (الساعة 03:55)</p>
+    <p style="margin-top: 10px; opacity: 0.9;">متبقي قد ايه علي الوقت دا</p>
+    <button class="btn" onclick="triggerFinalScreen()">اهم صفحه</button>
+  </div>
+
+  <!-- Screen 6: Final Love -->
+  <div id="screen6" class="screen">
+    <h1 id="loveTitle" class="love-title">بحبك</h1>
+    <p id="subProposal" class="sub-proposal">هتجوزك يعني هتجوزك💍</p>
+  </div>
+
+  <div id="finalHeartWrapper" class="final-heart-wrapper">
+    <div id="bigRedHeart" class="big-red-heart">❤️</div>
+  </div>
+
+  <script>
+    function createHearts(amount = 20) {
+      for (let i = 0; i < amount; i++) {
+        setTimeout(() => {
+          const heart = document.createElement('div');
+          heart.classList.add('heart');
+          heart.innerHTML = '❤️';
+          heart.style.left = Math.random() * 100 + 'vw';
+          heart.style.bottom = '-20px';
+          heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+          heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+          document.body.appendChild(heart);
+
+          setTimeout(() => { heart.remove(); }, 3500);
+        }, i * 80);
+      }
+    }
+
+    function focusPassword() { document.getElementById('passInput').focus(); }
+
+    function checkPassword() {
+      const input = document.getElementById('passInput').value;
+      if (input === '1010') {
+        const music = document.getElementById('bgMusic');
+        music.play().catch(e => console.log('Audio autoplay:', e));
+        document.getElementById('musicToggle').style.display = 'block';
+        createHearts(30);
+        goToScreen(1, 2);
+      } else {
+        alert('الباسورد غلط يا روحي، جربي 1010 😉');
+      }
+    }
+
+    function toggleMusic() {
+      const music = document.getElementById('bgMusic');
+      const btn = document.getElementById('musicToggle');
+      if (music.paused) { music.play(); btn.innerHTML = '🎵'; }
+      else { music.pause(); btn.innerHTML = '🔇'; }
+    }
+
+    function goToScreen(from, to) {
+      createHearts(25);
+      document.getElementById(`screen${from}`).classList.remove('active');
+      document.getElementById(`screen${to}`).classList.add('active');
+    }
+
+    function startBdayTimer() {
+      const timerElement = document.getElementById('bdayTimer');
+      function update() {
+        const now = new Date();
+        let targetYear = now.getFullYear();
+        let targetDate = new Date(`October 10, ${targetYear} 00:00:00`);
+        if (now > targetDate) { targetDate = new Date(`October 10, ${targetYear + 1} 00:00:00`); }
+        const diff = targetDate - now;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        timerElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }
+      update();
+      setInterval(update, 1000);
+    }
+
+    function startSpecialTimer() {
+      const timerElement = document.getElementById('specialTimer');
+      function update() {
+        const now = new Date();
+        let targetYear = now.getFullYear();
+        let targetDate = new Date(`January 3, ${targetYear} 03:55:00`);
+        if (now > targetDate) { targetDate = new Date(`January 3, ${targetYear + 1} 03:55:00`); }
+        const diff = targetDate - now;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        timerElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }
+      update();
+      setInterval(update, 1000);
+    }
+
+    function triggerFinalScreen() {
+      createHearts(60);
+      const overlay = document.getElementById('finalHeartWrapper');
+      const bigHeart = document.getElementById('bigRedHeart');
+      overlay.style.display = 'flex';
+      setTimeout(() => { bigHeart.classList.add('grow'); }, 100);
+      setTimeout(() => { bigHeart.classList.add('shatter'); }, 1500);
+
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        document.getElementById('screen5').classList.remove('active');
+        document.getElementById('screen6').classList.add('active');
+        setTimeout(() => {
+          document.getElementById('loveTitle').classList.add('show');
+          document.getElementById('subProposal').classList.add('show');
+          createHearts(40);
+        }, 200);
+      }, 2100);
+    }
+
+    window.onload = function() {
+      startBdayTimer();
+      startSpecialTimer();
+    };
+  </script>
+</body>
+</html>
