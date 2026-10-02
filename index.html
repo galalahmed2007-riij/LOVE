@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>هدية خاصة ❤️</title>
-  <!-- استدعاء خطوط Google: الخط الهندسي للواجهة + خط الرقعة للعبارات الرومانسية -->
   <link href="https://fonts.googleapis.com/css2?family=Changa:wght@700;800;900&family=Alexandria:wght@800;900&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -26,7 +25,39 @@
       position: relative;
     }
 
-    /* انتقال وانسيابية بين الصفحات */
+    /* قلوب الخلفية الزجاجية ثلاثية الأبعاد (موضوعة تحت المحتوى تماماً) */
+    .glass-heart-bg {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1; /* في الخلفية تحت كل حاجة */
+      opacity: 0.85;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
+      animation: floatSlow 6s ease-in-out infinite alternate;
+      transition: opacity 0.5s ease;
+    }
+    .glass-heart-1 {
+      bottom: 20px;
+      left: 15px;
+      width: 130px;
+    }
+    .glass-heart-2 {
+      bottom: 140px;
+      left: 45px;
+      width: 85px;
+      animation-delay: -2s;
+    }
+    .pink-heart-top {
+      top: 35px;
+      right: 30px;
+      width: 45px;
+      opacity: 0.9;
+    }
+    @keyframes floatSlow {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-15px) rotate(4deg); }
+    }
+
+    /* الشاشات والمحتوى فوق القلوب تماماً */
     .screen {
       display: none;
       flex-direction: column;
@@ -38,7 +69,8 @@
       opacity: 0;
       transform: scale(0.92) translateY(30px);
       transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 2;
+      position: relative;
+      z-index: 10; /* يضمن إن الكلام والأزرار دايماً فوق القلوب */
     }
     .screen.active {
       display: flex;
@@ -78,7 +110,7 @@
       font-weight: bold;
       border-radius: 30px;
       border: 2px solid rgba(255, 255, 255, 0.4);
-      background: rgba(0, 0, 0, 0.35);
+      background: rgba(0, 0, 0, 0.45);
       color: #FFFFFF;
       text-align: center;
       outline: none;
@@ -131,7 +163,7 @@
       font-size: 22px;
       font-weight: 800;
       line-height: 1.9;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.35);
       padding: 28px;
       border-radius: 22px;
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -139,7 +171,7 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
-    /* عرض العداد باللغة الإنجليزية بشكل أنيق */
+    /* عرض العداد باللغة الإنجليزية */
     .timer-container {
       display: flex;
       justify-content: center;
@@ -196,7 +228,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 10;
+      z-index: 20;
       overflow: hidden;
       display: none;
     }
@@ -215,7 +247,7 @@
       100% { opacity: 0; transform: scale(100); filter: blur(10px); }
     }
 
-    /* كتابة الرقعة في الصفحة الأخيرة */
+    /* خط الرقعة الأصيل للصفحة الأخيرة السادة */
     .love-title {
       font-family: 'Aref Ruqaa', serif !important;
       font-size: 85px;
@@ -240,40 +272,32 @@
       line-height: 1.4;
     }
     .sub-proposal.show { opacity: 1; }
-
-    /* قلوب زجاجية ثلاثية الأبعاد خفية في خلفية الصفحة الأخيرة */
-    .glass-heart-bg {
-      position: absolute;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.85;
-      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
-      animation: floatSlow 6s ease-in-out infinite alternate;
-    }
-    .glass-heart-1 {
-      bottom: 40px;
-      left: 20px;
-      width: 140px;
-    }
-    .glass-heart-2 {
-      bottom: 180px;
-      left: 50px;
-      width: 90px;
-      animation-delay: -2s;
-    }
-    .pink-heart-top {
-      top: 40px;
-      right: 35px;
-      width: 45px;
-      opacity: 0.9;
-    }
-    @keyframes floatSlow {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(-15px) rotate(4deg); }
-    }
   </style>
 </head>
 <body>
+
+  <!-- قلوب زجاجية عنابية ووردية ثابتة في الخلفية لجميع الصفحات 1-5 -->
+  <svg class="glass-heart-bg pink-heart-top" viewBox="0 0 100 100">
+    <path d="M 50,30 A 20,20 0 0,0 15,50 C 15,75 50,95 50,95 C 50,95 85,75 85,50 A 20,20 0 0,0 50,30 Z" fill="#ffb3c1"/>
+  </svg>
+
+  <svg class="glass-heart-bg glass-heart-1" viewBox="0 0 100 100">
+    <defs>
+      <radialGradient id="glassGrad1" cx="35%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#800020" />
+        <stop offset="40%" stop-color="#4a0010" />
+        <stop offset="100%" stop-color="#1a0005" />
+      </radialGradient>
+    </defs>
+    <path d="M 50,25 C 20,0 0,35 0,60 C 0,85 50,110 50,110 C 50,110 100,85 100,60 C 100,35 80,0 50,25 Z" fill="url(#glassGrad1)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <path d="M 25,35 Q 35,22 45,26 Q 30,38 25,35 Z" fill="rgba(255,255,255,0.7)"/>
+    <path d="M 20,55 Q 15,70 30,85 Q 18,72 20,55 Z" fill="rgba(255,255,255,0.3)"/>
+  </svg>
+
+  <svg class="glass-heart-bg glass-heart-2" viewBox="0 0 100 100">
+    <path d="M 50,25 C 20,0 0,35 0,60 C 0,85 50,110 50,110 C 50,110 100,85 100,60 C 100,35 80,0 50,25 Z" fill="url(#glassGrad1)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <path d="M 25,35 Q 35,22 45,26 Q 30,38 25,35 Z" fill="rgba(255,255,255,0.6)"/>
+  </svg>
 
   <button id="musicToggle" class="music-btn" onclick="toggleMusic()">🎵</button>
 
@@ -321,7 +345,6 @@
   <div id="screen3" class="screen">
     <h2>تاريخ ميلادك المميز ✨</h2>
     
-    <!-- عداد إنجليزي بالكامل: Days, Hours, Minutes, Seconds -->
     <div class="timer-container" id="bdayTimer">
       <div class="timer-box"><span class="timer-val" id="bDays">00</span><span class="timer-unit">Days</span></div>
       <div class="timer-box"><span class="timer-val" id="bHours">00</span><span class="timer-unit">Hours</span></div>
@@ -345,7 +368,6 @@
   <div id="screen5" class="screen">
     <h2>الوقت دا بالذات ⏳</h2>
     
-    <!-- عداد الوقت باللغة الإنجليزية -->
     <div class="timer-container" id="specialTimer">
       <div class="timer-box"><span class="timer-val" id="sDays">00</span><span class="timer-unit">Days</span></div>
       <div class="timer-box"><span class="timer-val" id="sHours">00</span><span class="timer-unit">Hours</span></div>
@@ -358,41 +380,14 @@
     <button class="btn" onclick="triggerFinalScreen()">اهم صفحه</button>
   </div>
 
-  <!-- Screen 6: Final Love (مع خط الرقعة والقلوب الزجاجية) -->
+  <!-- Screen 6: Final Love (صفحة سادة بدون قلوب الخلفية) -->
   <div id="screen6" class="screen">
-    
-    <!-- قلب وردي لطيف أعلى اليمين -->
-    <svg class="glass-heart-bg pink-heart-top" viewBox="0 0 100 100">
-      <path d="M 50,30 A 20,20 0 0,0 15,50 C 15,75 50,95 50,95 C 50,95 85,75 85,50 A 20,20 0 0,0 50,30 Z" fill="#ffb3c1"/>
-    </svg>
-
-    <!-- قلوب زجاجية عنابية ثلاثية الأبعاد مع لمعات زجاجية بالأسفل -->
-    <svg class="glass-heart-bg glass-heart-1" viewBox="0 0 100 100">
-      <defs>
-        <radialGradient id="glassGrad1" cx="35%" cy="30%" r="70%">
-          <stop offset="0%" stop-color="#800020" />
-          <stop offset="40%" stop-color="#4a0010" />
-          <stop offset="100%" stop-color="#1a0005" />
-        </radialGradient>
-      </defs>
-      <path d="M 50,25 C 20,0 0,35 0,60 C 0,85 50,110 50,110 C 50,110 100,85 100,60 C 100,35 80,0 50,25 Z" fill="url(#glassGrad1)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-      <!-- لمعة الإنعكاس الزجاجي الأبيض العلوي -->
-      <path d="M 25,35 Q 35,22 45,26 Q 30,38 25,35 Z" fill="rgba(255,255,255,0.7)"/>
-      <path d="M 20,55 Q 15,70 30,85 Q 18,72 20,55 Z" fill="rgba(255,255,255,0.3)"/>
-    </svg>
-
-    <svg class="glass-heart-bg glass-heart-2" viewBox="0 0 100 100">
-      <path d="M 50,25 C 20,0 0,35 0,60 C 0,85 50,110 50,110 C 50,110 100,85 100,60 C 100,35 80,0 50,25 Z" fill="url(#glassGrad1)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-      <path d="M 25,35 Q 35,22 45,26 Q 30,38 25,35 Z" fill="rgba(255,255,255,0.6)"/>
-    </svg>
-
-    <!-- النصوص بالخط العربي (الرقعة الأصيل) -->
     <h1 id="loveTitle" class="love-title">بحبك</h1>
     <p id="subProposal" class="sub-proposal">هتجوزك يعني هتجوزك 💍</p>
   </div>
 
   <div id="finalHeartWrapper" class="final-heart-wrapper">
-    <div id="bigRedHeart" class="big-red-heart">❤️️</div>
+    <div id="bigRedHeart" class="big-red-heart">❤</div>
   </div>
 
   <script>
@@ -446,7 +441,6 @@
       }, 300);
     }
 
-    /* حساب العداد باللغة الإنجليزية */
     function startBdayTimer() {
       function update() {
         const now = new Date();
@@ -495,6 +489,10 @@
       createHearts(60);
       const overlay = document.getElementById('finalHeartWrapper');
       const bigHeart = document.getElementById('bigRedHeart');
+      
+      // إخفاء قلوب الخلفية لتصبح الصفحة الأخيرة سادة بالكامل
+      document.querySelectorAll('.glass-heart-bg').forEach(el => el.style.opacity = '0');
+
       overlay.style.display = 'flex';
       setTimeout(() => { bigHeart.classList.add('grow'); }, 100);
       setTimeout(() => { bigHeart.classList.add('shatter'); }, 1500);
