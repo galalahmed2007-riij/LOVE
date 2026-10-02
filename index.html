@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>هدية خاصة ❤️</title>
-  <!-- خط هندسي عريض وعصري مطابق لخط Zafran Arabic -->
-  <link href="https://fonts.googleapis.com/css2?family=Changa:wght@700;800;900&family=Alexandria:wght@800;900&display=swap" rel="stylesheet">
+  <!-- استدعاء خطوط Google: الخط الهندسي للواجهة + خط الرقعة للعبارات الرومانسية -->
+  <link href="https://fonts.googleapis.com/css2?family=Changa:wght@700;800;900&family=Alexandria:wght@800;900&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -23,9 +23,10 @@
       align-items: center;
       overflow-x: hidden;
       padding: 20px;
+      position: relative;
     }
 
-    /* تأثيرات التقليب والانتقال الملساء بين الصفحات */
+    /* انتقال وانسيابية بين الصفحات */
     .screen {
       display: none;
       flex-direction: column;
@@ -45,7 +46,7 @@
       transform: scale(1) translateY(0);
     }
 
-    /* القفل الواقعي الكبير في المنتصف */
+    /* القفل الواقعي المجسم */
     .lock-wrapper {
       position: relative;
       width: 130px;
@@ -61,13 +62,6 @@
     .lock-svg {
       width: 100%;
       height: 100%;
-    }
-
-    /* كتابة الباسورد والنصوص */
-    h2, h1, .love-title {
-      font-weight: 900;
-      letter-spacing: 1px;
-      text-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
 
     .pass-label {
@@ -145,18 +139,38 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
-    .timer-display {
-      font-size: 30px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      direction: ltr;
-      background: rgba(0, 0, 0, 0.45);
-      padding: 18px 28px;
-      border-radius: 20px;
+    /* عرض العداد باللغة الإنجليزية بشكل أنيق */
+    .timer-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
       margin: 20px 0;
+      direction: ltr;
+    }
+    .timer-box {
+      background: rgba(0, 0, 0, 0.45);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: inset 0 0 15px rgba(0,0,0,0.6);
+      padding: 12px 14px;
+      border-radius: 16px;
+      min-width: 70px;
+      box-shadow: inset 0 0 12px rgba(0,0,0,0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .timer-val {
+      font-size: 26px;
+      font-weight: 900;
       color: #ffccd5;
+    }
+    .timer-unit {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
     }
 
     .heart {
@@ -201,23 +215,62 @@
       100% { opacity: 0; transform: scale(100); filter: blur(10px); }
     }
 
+    /* كتابة الرقعة في الصفحة الأخيرة */
     .love-title {
-      font-size: 70px;
+      font-family: 'Aref Ruqaa', serif !important;
+      font-size: 85px;
+      font-weight: 700;
       color: #FFFFFF;
       text-shadow: 0 0 20px rgba(255,255,255,0.8), 0 0 40px #ff0d43;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       opacity: 0;
       transform: scale(0.5);
       transition: all 1s ease;
+      line-height: 1.2;
     }
     .love-title.show { opacity: 1; transform: scale(1); }
     .sub-proposal {
-      font-size: 28px;
-      font-weight: 900;
+      font-family: 'Aref Ruqaa', serif !important;
+      font-size: 38px;
+      font-weight: 700;
+      color: #ffccd5;
+      text-shadow: 0 0 15px rgba(255, 13, 67, 0.7);
       opacity: 0;
       transition: opacity 1.5s ease 0.8s;
+      line-height: 1.4;
     }
     .sub-proposal.show { opacity: 1; }
+
+    /* قلوب زجاجية ثلاثية الأبعاد خفية في خلفية الصفحة الأخيرة */
+    .glass-heart-bg {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.85;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+      animation: floatSlow 6s ease-in-out infinite alternate;
+    }
+    .glass-heart-1 {
+      bottom: 40px;
+      left: 20px;
+      width: 140px;
+    }
+    .glass-heart-2 {
+      bottom: 180px;
+      left: 50px;
+      width: 90px;
+      animation-delay: -2s;
+    }
+    .pink-heart-top {
+      top: 40px;
+      right: 35px;
+      width: 45px;
+      opacity: 0.9;
+    }
+    @keyframes floatSlow {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-15px) rotate(4deg); }
+    }
   </style>
 </head>
 <body>
@@ -230,7 +283,6 @@
 
   <!-- Screen 1: Lock Screen -->
   <div id="screen1" class="screen active">
-    <!-- قفل تصميم واقعي ذهبي ومجسم -->
     <div class="lock-wrapper" onclick="focusPassword()">
       <svg class="lock-svg" viewBox="0 0 100 100">
         <defs>
@@ -245,11 +297,8 @@
             <stop offset="100%" stop-color="#90A4AE"/>
           </linearGradient>
         </defs>
-        <!-- الذراع المعدني -->
         <path d="M 30 45 V 28 A 20 20 0 0 1 70 28 V 45" fill="none" stroke="url(#shackle)" stroke-width="10" stroke-linecap="round"/>
-        <!-- جسم القفل -->
         <rect x="20" y="42" width="60" height="48" rx="10" fill="url(#gold)" stroke="#FFA000" stroke-width="2"/>
-        <!-- فتحة المفتاح -->
         <circle cx="50" cy="62" r="5" fill="#3E2723"/>
         <polygon points="47,64 53,64 55,75 45,75" fill="#3E2723"/>
       </svg>
@@ -268,10 +317,18 @@
     <button class="btn" onclick="goToScreen(2, 3)">يلا نكمل سوا</button>
   </div>
 
-  <!-- Screen 3: Date 10/10/2006 -->
+  <!-- Screen 3: Birthday Date -->
   <div id="screen3" class="screen">
     <h2>تاريخ ميلادك المميز ✨</h2>
-    <div id="bdayTimer" class="timer-display">00d 00h 00m 00s</div>
+    
+    <!-- عداد إنجليزي بالكامل: Days, Hours, Minutes, Seconds -->
+    <div class="timer-container" id="bdayTimer">
+      <div class="timer-box"><span class="timer-val" id="bDays">00</span><span class="timer-unit">Days</span></div>
+      <div class="timer-box"><span class="timer-val" id="bHours">00</span><span class="timer-unit">Hours</span></div>
+      <div class="timer-box"><span class="timer-val" id="bMins">00</span><span class="timer-unit">Minutes</span></div>
+      <div class="timer-box"><span class="timer-val" id="bSecs">00</span><span class="timer-unit">Seconds</span></div>
+    </div>
+
     <p style="font-size: 22px; font-weight: 800;">يوم 10 شهر 10 سنه 2006</p>
     <button class="btn" onclick="goToScreen(3, 4)">من هنا يا حياتي</button>
   </div>
@@ -287,20 +344,55 @@
   <!-- Screen 5: Special Time -->
   <div id="screen5" class="screen">
     <h2>الوقت دا بالذات ⏳</h2>
-    <div id="specialTimer" class="timer-display">00d 00h 00m 00s</div>
+    
+    <!-- عداد الوقت باللغة الإنجليزية -->
+    <div class="timer-container" id="specialTimer">
+      <div class="timer-box"><span class="timer-val" id="sDays">00</span><span class="timer-unit">Days</span></div>
+      <div class="timer-box"><span class="timer-val" id="sHours">00</span><span class="timer-unit">Hours</span></div>
+      <div class="timer-box"><span class="timer-val" id="sMins">00</span><span class="timer-unit">Minutes</span></div>
+      <div class="timer-box"><span class="timer-val" id="sSecs">00</span><span class="timer-unit">Seconds</span></div>
+    </div>
+
     <p style="font-size: 22px; font-weight: 800;">يوم ٣ شهر ١ (الساعة 03:55)</p>
     <p style="margin-top: 10px; opacity: 0.9;">متبقي قد ايه علي الوقت دا</p>
     <button class="btn" onclick="triggerFinalScreen()">اهم صفحه</button>
   </div>
 
-  <!-- Screen 6: Final Love -->
+  <!-- Screen 6: Final Love (مع خط الرقعة والقلوب الزجاجية) -->
   <div id="screen6" class="screen">
+    
+    <!-- قلب وردي لطيف أعلى اليمين -->
+    <svg class="glass-heart-bg pink-heart-top" viewBox="0 0 100 100">
+      <path d="M 50,30 A 20,20 0 0,0 15,50 C 15,75 50,95 50,95 C 50,95 85,75 85,50 A 20,20 0 0,0 50,30 Z" fill="#ffb3c1"/>
+    </svg>
+
+    <!-- قلوب زجاجية عنابية ثلاثية الأبعاد مع لمعات زجاجية بالأسفل -->
+    <svg class="glass-heart-bg glass-heart-1" viewBox="0 0 100 100">
+      <defs>
+        <radialGradient id="glassGrad1" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#800020" />
+          <stop offset="40%" stop-color="#4a0010" />
+          <stop offset="100%" stop-color="#1a0005" />
+        </radialGradient>
+      </defs>
+      <path d="M 50,25 C 20,0 0,35 0,60 C 0,85 50,110 50,110 C 50,110 100,85 100,60 C 100,35 80,0 50,25 Z" fill="url(#glassGrad1)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+      <!-- لمعة الإنعكاس الزجاجي الأبيض العلوي -->
+      <path d="M 25,35 Q 35,22 45,26 Q 30,38 25,35 Z" fill="rgba(255,255,255,0.7)"/>
+      <path d="M 20,55 Q 15,70 30,85 Q 18,72 20,55 Z" fill="rgba(255,255,255,0.3)"/>
+    </svg>
+
+    <svg class="glass-heart-bg glass-heart-2" viewBox="0 0 100 100">
+      <path d="M 50,25 C 20,0 0,35 0,60 C 0,85 50,110 50,110 C 50,110 100,85 100,60 C 100,35 80,0 50,25 Z" fill="url(#glassGrad1)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+      <path d="M 25,35 Q 35,22 45,26 Q 30,38 25,35 Z" fill="rgba(255,255,255,0.6)"/>
+    </svg>
+
+    <!-- النصوص بالخط العربي (الرقعة الأصيل) -->
     <h1 id="loveTitle" class="love-title">بحبك</h1>
-    <p id="subProposal" class="sub-proposal">هتجوزك يعني هتجوزك💍</p>
+    <p id="subProposal" class="sub-proposal">هتجوزك يعني هتجوزك 💍</p>
   </div>
 
   <div id="finalHeartWrapper" class="final-heart-wrapper">
-    <div id="bigRedHeart" class="big-red-heart">❤️</div>
+    <div id="bigRedHeart" class="big-red-heart">❤️️</div>
   </div>
 
   <script>
@@ -354,37 +446,46 @@
       }, 300);
     }
 
+    /* حساب العداد باللغة الإنجليزية */
     function startBdayTimer() {
-      const timerElement = document.getElementById('bdayTimer');
       function update() {
         const now = new Date();
         let targetYear = now.getFullYear();
         let targetDate = new Date(`October 10, ${targetYear} 00:00:00`);
         if (now > targetDate) { targetDate = new Date(`October 10, ${targetYear + 1} 00:00:00`); }
         const diff = targetDate - now;
+
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        timerElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('bDays').innerText = String(days).padStart(2, '0');
+        document.getElementById('bHours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('bMins').innerText = String(mins).padStart(2, '0');
+        document.getElementById('bSecs').innerText = String(secs).padStart(2, '0');
       }
       update();
       setInterval(update, 1000);
     }
 
     function startSpecialTimer() {
-      const timerElement = document.getElementById('specialTimer');
       function update() {
         const now = new Date();
         let targetYear = now.getFullYear();
         let targetDate = new Date(`January 3, ${targetYear} 03:55:00`);
         if (now > targetDate) { targetDate = new Date(`January 3, ${targetYear + 1} 03:55:00`); }
         const diff = targetDate - now;
+
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        timerElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('sDays').innerText = String(days).padStart(2, '0');
+        document.getElementById('sHours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('sMins').innerText = String(mins).padStart(2, '0');
+        document.getElementById('sSecs').innerText = String(secs).padStart(2, '0');
       }
       update();
       setInterval(update, 1000);
